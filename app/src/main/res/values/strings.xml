@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">CS411Project</string>
+    <string name="Title">FoodApp</string>
+    <string name="search_restaurants">Search Restaurants</string>
+    <string name="welcome">Welcome!</string>
+    <string name="user_registration">User Registration</string>
+    <string name="write_a_review">Write A Review</string>
+    <string name="search_menu_item">Search Menu item</string>
+    <string name="title_activity_search_menu_item">SearchMenuItem</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+</resources>
