@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/search_restaurants"
+        android:text="User Registration"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -24,7 +24,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/scrollView"
         android:layout_width="379dp"
         android:layout_height="535dp"
         android:layout_marginTop="16dp"
@@ -37,68 +37,60 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/Name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Name"
-                android:inputType="textPersonName" />
 
             <EditText
-                android:id="@+id/Start_Hour"
+                android:id="@+id/User_ID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Opening Hour Limit"
-                android:inputType="number" />
+                android:inputType="textPersonName"
+                android:hint="User ID (Must Be Unique)" />
 
             <EditText
-                android:id="@+id/End_Hour"
+                android:id="@+id/Display_ID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Closing Hour Limit"
-                android:inputType="number" />
+                android:inputType="textPersonName"
+                android:hint="Display ID" />
 
             <EditText
-                android:id="@+id/Open_Days"
+                android:id="@+id/First_Name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Open Days"
-                android:inputType="number" />
+                android:inputType="textPersonName"
+                android:hint="First Name" />
 
             <EditText
-                android:id="@+id/Regional_Type"
+                android:id="@+id/Last_Name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Regional Type"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:hint="Last Name" />
 
             <EditText
-                android:id="@+id/Pricing"
+                android:id="@+id/Country"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Pricing"
-                android:inputType="numberDecimal" />
+                android:inputType="textPersonName"
+                android:hint="Country of Origin" />
 
             <EditText
-                android:id="@+id/Menu_Item"
+                android:id="@+id/BirthDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Specific Menu Item"
-                android:inputType="textPersonName" />
+                android:hint="Date of Birth - MMDDYYYY"
+                android:inputType="date" />
 
             <TextView
-                android:id="@+id/Result"
+                android:id="@+id/SuccessMessageBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="20sp" />
+                android:text="" />
         </LinearLayout>
     </ScrollView>
 
@@ -109,7 +101,7 @@
         android:background="@color/colorAccent"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        android:text="Go!"
+        android:text="Submit"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

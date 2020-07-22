@@ -19,6 +19,18 @@
         <activity
             android:name=".SearchRestaurants"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".SearchMenuItem"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".UserRegistration"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".Review"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".SearchReviews"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>
