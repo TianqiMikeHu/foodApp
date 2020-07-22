@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">CS411Project</string>
-    <string name="Title">FoodApp</string>
-    <string name="search_restaurants">Search Restaurants</string>
-    <string name="welcome">Welcome!</string>
-    <string name="user_registration">User Registration</string>
-    <string name="write_a_review">Write A Review</string>
-    <string name="search_menu_item">Search Menu item</string>
-</resources>
