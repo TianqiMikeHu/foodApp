@@ -26,8 +26,9 @@
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="379dp"
-        android:layout_height="535dp"
+        android:layout_height="450dp"
         android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/search_restaurants_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Title">
@@ -44,8 +45,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:hint="Name of Restaurant" />
+                android:hint="Name of Restaurant"
+                android:inputType="textPersonName" />
 
             <TextView
                 android:id="@+id/Result"

@@ -17,7 +17,7 @@
         android:id="@+id/search_restaurants"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="264dp"
+        android:layout_marginTop="212dp"
         android:background="@color/colorAccent"
         android:text="@string/search_restaurants"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
@@ -27,7 +27,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="60dp"
         android:layout_marginBottom="16dp"
         android:text="@string/welcome"
         android:textSize="40sp"
@@ -76,5 +76,19 @@
         android:text="Search Reviews"
         app:layout_constraintTop_toBottomOf="@+id/write_a_review"
         tools:layout_editor_absoluteX="160dp" />
+
+    <Button
+        android:id="@+id/add_update_delete_restaurants"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorAccent"
+        android:text="Add/Update/Delete Restaurants"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_reviews"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

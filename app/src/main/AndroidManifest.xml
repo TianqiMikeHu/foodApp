@@ -31,6 +31,18 @@
         <activity
             android:name=".SearchReviews"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".AddUpdateDeleteRestaurants"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".AddRestaurants"
+            android:parentActivityName=".AddUpdateDeleteRestaurants" />
+        <activity
+            android:name=".DeleteRestaurants"
+            android:parentActivityName=".AddUpdateDeleteRestaurants" />
+        <activity
+            android:name=".UpdateRestaurants"
+            android:parentActivityName=".AddUpdateDeleteRestaurants" />
     </application>
 
 </manifest>
