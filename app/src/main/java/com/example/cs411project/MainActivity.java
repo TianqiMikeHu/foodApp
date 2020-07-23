@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     private Button user_registration;
     private Button review;
     private Button search_reviews;
+    private Button add_update_delete_restaurants;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
                 search_reviews();
             }
         });
+        add_update_delete_restaurants = (Button) findViewById(R.id.add_update_delete_restaurants);
+        add_update_delete_restaurants.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                add_update_delete_restaurants();
+            }
+        });
     }
 
     public void search_restaurants(){
@@ -76,8 +84,14 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Review.class);
         startActivity(intent);
     }
+
     public void search_reviews(){
         Intent intent = new Intent(this, SearchReviews.class);
+        startActivity(intent);
+    }
+
+    public void add_update_delete_restaurants(){
+        Intent intent = new Intent(this, AddUpdateDeleteRestaurants.class);
         startActivity(intent);
     }
 }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffff00"
-    tools:context=".MainActivity">
+    tools:context=".AddUpdateDeleteRestaurants">
 
     <include
         android:id="@+id/toolbar"
@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/search_restaurants"
+        android:text="Set Deletion Conditions"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -24,11 +24,10 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/scrollView"
         android:layout_width="379dp"
         android:layout_height="450dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/search_restaurants_button"
+        app:layout_constraintBottom_toTopOf="@+id/update_restaurants_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Title">
@@ -38,20 +37,37 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
             <EditText
-                android:id="@+id/Name"
+                android:id="@+id/Eatery_ID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Name"
+                android:hint="Eatery ID"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/Eatery_Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Eatery Name"
                 android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/Email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="textEmailAddress" />
 
             <EditText
                 android:id="@+id/Start_Hour"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Opening Hour Limit"
+                android:hint="Start Hour"
                 android:inputType="number" />
 
             <EditText
@@ -59,7 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Closing Hour Limit"
+                android:hint="End Hour"
                 android:inputType="number" />
 
             <EditText
@@ -71,6 +87,30 @@
                 android:inputType="textPersonName" />
 
             <EditText
+                android:id="@+id/Address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Address"
+                android:inputType="textPostalAddress" />
+
+            <EditText
+                android:id="@+id/Pricing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Pricing"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/Phone_Num"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Phone Number"
+                android:inputType="phone" />
+
+            <EditText
                 android:id="@+id/Regional_Type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -79,38 +119,33 @@
                 android:inputType="textPersonName" />
 
             <EditText
-                android:id="@+id/Pricing"
+                android:id="@+id/Eatery_Type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Pricing"
-                android:inputType="numberDecimal" />
+                android:hint="Eatery Type"
+                android:inputType="number" />
 
             <EditText
-                android:id="@+id/Menu_Item"
+                android:id="@+id/Cuisine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Specific Menu Item"
+                android:hint="Cuisine"
                 android:inputType="textPersonName" />
 
-            <TextView
-                android:id="@+id/Result"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="20sp" />
+
         </LinearLayout>
     </ScrollView>
 
     <Button
-        android:id="@+id/search_restaurants_button"
+        android:id="@+id/delete_restaurants_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        android:text="Go!"
+        android:text="Delete"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

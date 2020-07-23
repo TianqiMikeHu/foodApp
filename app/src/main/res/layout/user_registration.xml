@@ -26,8 +26,9 @@
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="379dp"
-        android:layout_height="535dp"
+        android:layout_height="450dp"
         android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/search_restaurants_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Title">
@@ -43,47 +44,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:hint="User ID (Must Be Unique)" />
+                android:hint="User ID (Must Be Unique)"
+                android:inputType="textPersonName" />
 
             <EditText
                 android:id="@+id/Display_ID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:hint="Display ID" />
+                android:hint="Display ID"
+                android:inputType="textPersonName" />
 
             <EditText
-                android:id="@+id/First_Name"
+                android:id="@+id/Address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:hint="First Name" />
-
-            <EditText
-                android:id="@+id/Last_Name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:hint="Last Name" />
-
-            <EditText
-                android:id="@+id/Country"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:hint="Country of Origin" />
-
-            <EditText
-                android:id="@+id/BirthDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Date of Birth - MMDDYYYY"
+                android:hint="Address"
                 android:inputType="date" />
 
             <TextView
