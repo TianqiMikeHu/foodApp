@@ -79,8 +79,7 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
             }
         };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
+        RequestQueueHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
 
     public void onClick(View btn) {
