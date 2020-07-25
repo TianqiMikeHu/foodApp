@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -28,6 +29,13 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
 
     // @TODO: add all EditTexts here and within onCreate
     private EditText editTextName;
+    private EditText editTextOPENTIME;
+    private EditText editTextCLOSINGTIME;
+    private EditText editTextOPENDAYS;
+    private EditText editTextREGIONALTYPE;
+    private EditText editTextPRICING;
+    private EditText editTextSPECIFICMENUITEM;
+    private TextView textViewRESULT;
     private Button search_restaurants_button;
 
     @Override
@@ -36,21 +44,33 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_restaurants);
 
-        // not sure if this is necessary
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar bar = getSupportActionBar();
         bar.setDisplayHomeAsUpEnabled(true);
 
         editTextName = (EditText) findViewById(R.id.Name);
+        editTextOPENTIME = (EditText) findViewById(R.id.Start_Hour);
+        editTextCLOSINGTIME = (EditText) findViewById(R.id.End_Hour);
+        editTextOPENDAYS = (EditText) findViewById(R.id.Open_Days);
+        editTextREGIONALTYPE = (EditText) findViewById(R.id.Regional_Type);
+        editTextPRICING = (EditText) findViewById(R.id.Pricing);
+        editTextSPECIFICMENUITEM = (EditText) findViewById(R.id.Menu_Item);
+
+        textViewRESULT = (TextView) findViewById(R.id.Result);
+
         search_restaurants_button = (Button) findViewById(R.id.search_restaurants_button);
         search_restaurants_button.setOnClickListener(this);
     }
 
     private void insertRestaurant() {
-        // @TODO: get all values entered by user - not just name
         final String name = editTextName.getText().toString().trim();
-        //
+        final String Start_Hour = editTextOPENTIME.getText().toString().trim();
+        final String End_Hour = editTextCLOSINGTIME.getText().toString().trim();
+        final String Open_Days = editTextOPENDAYS.getText().toString().trim();
+        final String Regional_Type = editTextREGIONALTYPE.getText().toString().trim();
+        final String Pricing = editTextPRICING.getText().toString().trim();
+        final String Menu_Item = editTextSPECIFICMENUITEM.getText().toString().trim();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 Constants.URL_INSERT_RESTAURANT, new Response.Listener<String>() {
@@ -74,7 +94,13 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
                 Map<String,String> params = new HashMap<>();
                 //@TODO: add all vals to params
                 params.put("Name", name);
-                params.put("Address", "tempAddress123");
+                params.put("OpeningHour", Start_Hour);
+                params.put("ClosingHour", End_Hour);
+                params.put("OpenDays", Open_Days);
+                params.put("RegionalType", Regional_Type);
+                params.put("Pricing", Pricing);
+                //params.put("MenuItem", Menu_Item);
+                //params.put("Address", "tempAddress123");
                 return params;
             }
         };
