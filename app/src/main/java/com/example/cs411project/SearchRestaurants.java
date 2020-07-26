@@ -19,11 +19,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class SearchRestaurants extends AppCompatActivity implements View.OnClickListener {
 
@@ -92,15 +96,14 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params = new HashMap<>();
-                //@TODO: add all vals to params
                 params.put("Name", name);
-                params.put("OpeningHour", Start_Hour);
-                params.put("ClosingHour", End_Hour);
-                params.put("OpenDays", Open_Days);
-                params.put("RegionalType", Regional_Type);
-                params.put("Pricing", Pricing);
-                //params.put("MenuItem", Menu_Item);
-                //params.put("Address", "tempAddress123");
+                params.put("Address", "demoAddress123");
+                //params.put("OpeningHour", Start_Hour);
+                //params.put("ClosingHour", End_Hour);
+                //params.put("OpenDays", Open_Days);
+                //params.put("RegionalType", Regional_Type);
+                //params.put("Pricing", Pricing);
+                //params.put("Cuisine", Menu_Item);
                 return params;
             }
         };
@@ -108,9 +111,41 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
         RequestQueueHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
 
+    private void getRestaurants() {
+        //final ArrayList<Object> resultList = new ArrayList<>();
+        //final String resultList[] = {""};
+        final ArrayList<String> resultList = new ArrayList<>();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Constants.URL_GET_RESTAURANT, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray arr = new JSONArray(response);
+                    for (int i = 0; i < arr.length(); i++) {
+                        JSONObject restaurant = arr.getJSONObject(i);
+                        resultList.add(restaurant.toString());
+                    }
+                    for (int i = 0; i < resultList.size(); i++) {
+                        textViewRESULT.append(resultList.get(i));
+                    }
+                    //textViewRESULT.setText("hello");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        //Volley.newRequestQueue(this).add(stringRequest);
+        RequestQueueHandler.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
     public void onClick(View btn) {
         if (btn == search_restaurants_button) {
             insertRestaurant();
+            getRestaurants();
         }
     }
 }
