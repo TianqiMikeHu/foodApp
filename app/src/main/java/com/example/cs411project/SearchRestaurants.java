@@ -1,6 +1,7 @@
 package com.example.cs411project;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -31,7 +33,6 @@ import java.util.concurrent.TimeUnit;
 
 public class SearchRestaurants extends AppCompatActivity implements View.OnClickListener {
 
-    // @TODO: add all EditTexts here and within onCreate
     private EditText editTextName;
     private EditText editTextOPENTIME;
     private EditText editTextCLOSINGTIME;
@@ -97,23 +98,76 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params = new HashMap<>();
                 params.put("Name", name);
-                params.put("Address", "demoAddress123");
-                //params.put("OpeningHour", Start_Hour);
-                //params.put("ClosingHour", End_Hour);
-                //params.put("OpenDays", Open_Days);
-                //params.put("RegionalType", Regional_Type);
-                //params.put("Pricing", Pricing);
-                //params.put("Cuisine", Menu_Item);
+                params.put("Address", "test123124");
+//                params.put("Name", name);
+//                params.put("Website", "testwebsite.com");
+//                params.put("Start_Hour", Start_Hour);
+//                params.put("End_Hour", End_Hour);
+//                params.put("Open_Days", Open_Days);
+//                params.put("Address", "testaddress123");
+//                params.put("Price_Level", Pricing);
+//                params.put("Phone", "888-8888-8888");
+//                params.put("Regional_Type", Regional_Type);
+//                params.put("Eatery_Type", Menu_Item);
+
+                return params;
+            }
+//            @Override
+//            public Map<String, String> getHeaders() throws AuthFailureError {
+//                Map<String,String> headers = new HashMap<String, String>();
+//                headers.put("Content-Type","application/x-www-form-urlencoded");
+//                headers.put("Name:", name);
+//                headers.put("Website:", "atakan.com");
+//                headers.put("Start_Hour:", "0700");
+//                headers.put("End_Hour:", "2300");
+//                headers.put("Open_Days:", "1234560");
+//                headers.put("Address:", "408 E Springfield");
+//                headers.put("Price_Level:", "3");
+//                headers.put("Phone:", "22222222");
+//                headers.put("Regional_Type:", "Turkish");
+//                headers.put("Eatery_Type:", "Ev");
+//                return headers;
+//            }
+        };
+        RequestQueueHandler.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
+    private void getEatery() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                Constants.URL_GET_RESTAURANT, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                //JSONObject params = new JSONObject();
+                params.put("Name:", "");
+                params.put("OpeningHour:", "");
+                params.put("ClosingHour:", "");
+                params.put("OpenDays:", "%2%4");
+                params.put("Type:", "");
+                params.put("Pricing:", "");
+                params.put("MenuItem:", "Salad");
                 return params;
             }
         };
-
         RequestQueueHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
 
     private void getRestaurants() {
-        //final ArrayList<Object> resultList = new ArrayList<>();
-        //final String resultList[] = {""};
         final ArrayList<String> resultList = new ArrayList<>();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, Constants.URL_GET_RESTAURANT, new Response.Listener<String>() {
             @Override
@@ -127,7 +181,6 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
                     for (int i = 0; i < resultList.size(); i++) {
                         textViewRESULT.append(resultList.get(i));
                     }
-                    //textViewRESULT.setText("hello");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -138,14 +191,53 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
                 Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-        //Volley.newRequestQueue(this).add(stringRequest);
         RequestQueueHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
+
+
+    private void insertEatery() {
+        Map<String,String> params = new HashMap<>();
+        //JSONObject params = new JSONObject();
+        params.put("Name:", "TESTNAME");
+        params.put("Website:", "atakan.com");
+        params.put("Start_Hour:", "0700");
+        params.put("End_Hour:", "2300");
+        params.put("Open_Days:", "1234560");
+        params.put("Address:", "408 E Springfield");
+        params.put("Price_Level:", "3");
+        params.put("Phone:", "22222222");
+        params.put("Regional_Type:", "Turkish");
+        params.put("Eatery_Type:", "Ev");
+        JSONObject parameters = new JSONObject(params);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
+                Constants.URL_INSERT_RESTAURANT, parameters, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Log.i("tagconvertstr", "["+response+"]");
+                    JSONObject jsonObject = new JSONObject((Map) response);
+                    Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestQueueHandler.getInstance(this).addToRequestQueue(jsonObjectRequest);
+    }
+
 
     public void onClick(View btn) {
         if (btn == search_restaurants_button) {
             insertRestaurant();
             getRestaurants();
+
+            //insertEatery();
+            //getEatery();
         }
     }
 }
