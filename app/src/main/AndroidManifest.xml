@@ -24,31 +24,39 @@
         </activity>
         <activity
             android:name=".SearchRestaurants"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".SearchMenuItem"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".UserRegistration"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Review"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".SearchReviews"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".AddUpdateDeleteRestaurants"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".AddRestaurants"
-            android:parentActivityName=".AddUpdateDeleteRestaurants" />
+            android:parentActivityName=".AddUpdateDeleteRestaurants"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".DeleteRestaurants"
-            android:parentActivityName=".AddUpdateDeleteRestaurants" />
+            android:parentActivityName=".AddUpdateDeleteRestaurants"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".UpdateRestaurants"
-            android:parentActivityName=".AddUpdateDeleteRestaurants" />
+            android:parentActivityName=".AddUpdateDeleteRestaurants"
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>
