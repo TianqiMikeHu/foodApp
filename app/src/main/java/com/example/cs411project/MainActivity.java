@@ -11,13 +11,6 @@ import android.widget.Button;
 import com.google.android.gms.location.FusedLocationProviderClient;
 
 public class MainActivity extends AppCompatActivity {
-
-    private static final String TAG = "MainActivity";
-    int LOCATION_REQUEST_CODE = 10001;
-
-    FusedLocationProviderClient fusedLocationProviderClient;
-
-
     private Button search_restaurants;
     private Button search_menu_item;
     private Button user_registration;
