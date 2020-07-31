@@ -13,10 +13,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -25,6 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -81,12 +84,8 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
                 Constants.URL_INSERT_RESTAURANT, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                //JSONObject jsonObject = new JSONObject(response);
+                Toast.makeText(getApplicationContext(), "hello", Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -97,38 +96,28 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params = new HashMap<>();
-                params.put("Name", name);
-                params.put("Address", "test123124");
-//                params.put("Name", name);
-//                params.put("Website", "testwebsite.com");
-//                params.put("Start_Hour", Start_Hour);
-//                params.put("End_Hour", End_Hour);
-//                params.put("Open_Days", Open_Days);
-//                params.put("Address", "testaddress123");
-//                params.put("Price_Level", Pricing);
-//                params.put("Phone", "888-8888-8888");
-//                params.put("Regional_Type", Regional_Type);
-//                params.put("Eatery_Type", Menu_Item);
+                //params.put("Name", name);
+                //params.put("Address", "test123124");
+          params.put("Name:", "TESTNAME");
+          params.put("Website:", "atakan.com");
+          params.put("Start_Hour:", "0700");
+          params.put("End_Hour:", "2300");
+          params.put("Open_Days:", "1234560");
+          params.put("Address:", "408 E Springfield");
+          params.put("Price_Level:", "3");
+          params.put("Phone:", "22222222");
+          params.put("Regional_Type:", "Turkish");
+          params.put("Eatery_Type:", "Ev");
+
+                for (Map.Entry entry : params.entrySet())
+                {
+                    System.out.println("key: " + entry.getKey() + "; value: " + entry.getValue());
+                }
 
                 return params;
             }
-//            @Override
-//            public Map<String, String> getHeaders() throws AuthFailureError {
-//                Map<String,String> headers = new HashMap<String, String>();
-//                headers.put("Content-Type","application/x-www-form-urlencoded");
-//                headers.put("Name:", name);
-//                headers.put("Website:", "atakan.com");
-//                headers.put("Start_Hour:", "0700");
-//                headers.put("End_Hour:", "2300");
-//                headers.put("Open_Days:", "1234560");
-//                headers.put("Address:", "408 E Springfield");
-//                headers.put("Price_Level:", "3");
-//                headers.put("Phone:", "22222222");
-//                headers.put("Regional_Type:", "Turkish");
-//                headers.put("Eatery_Type:", "Ev");
-//                return headers;
-//            }
         };
+
         RequestQueueHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
 
@@ -138,7 +127,7 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
             @Override
             public void onResponse(String response) {
                 try {
-                    JSONObject jsonObject = new JSONObject(response);
+                    JSONObject jsonObject = new JSONObject(response.toString());
                     Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -196,8 +185,7 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
 
 
     private void insertEatery() {
-        Map<String,String> params = new HashMap<>();
-        //JSONObject params = new JSONObject();
+        HashMap<String,String> params = new HashMap<>();
         params.put("Name:", "TESTNAME");
         params.put("Website:", "atakan.com");
         params.put("Start_Hour:", "0700");
@@ -209,14 +197,17 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
         params.put("Regional_Type:", "Turkish");
         params.put("Eatery_Type:", "Ev");
         JSONObject parameters = new JSONObject(params);
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
                 Constants.URL_INSERT_RESTAURANT, parameters, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    Log.i("tagconvertstr", "["+response+"]");
+                    //Log.println(Log.INFO, "tagconvertstr", "["+response+"]");
+                    Log.d("test----", response.toString());
                     JSONObject jsonObject = new JSONObject((Map) response);
                     Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -233,7 +224,8 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
 
     public void onClick(View btn) {
         if (btn == search_restaurants_button) {
-            insertRestaurant();
+
+            //insertRestaurant();
             getRestaurants();
 
             //insertEatery();
