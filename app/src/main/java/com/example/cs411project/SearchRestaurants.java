@@ -1,5 +1,8 @@
 package com.example.cs411project;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -22,6 +26,12 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,6 +45,9 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class SearchRestaurants extends AppCompatActivity implements View.OnClickListener {
+
+    private FusedLocationProviderClient fusedLocationClient;
+    private Location user_location;
 
     private EditText editTextName;
     private EditText editTextOPENTIME;
@@ -57,6 +70,8 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
         ActionBar bar = getSupportActionBar();
         bar.setDisplayHomeAsUpEnabled(true);
 
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
         editTextName = (EditText) findViewById(R.id.Name);
         editTextOPENTIME = (EditText) findViewById(R.id.Start_Hour);
         editTextCLOSINGTIME = (EditText) findViewById(R.id.End_Hour);
@@ -69,6 +84,22 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
 
         search_restaurants_button = (Button) findViewById(R.id.search_restaurants_button);
         search_restaurants_button.setOnClickListener(this);
+    }
+
+
+    private void getUserLocation() {
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location != null) {
+                            user_location = location;
+                            System.out.println(location.getLatitude());
+                            System.out.println(location.getLongitude());
+                            System.out.println(location.getExtras());
+                        }
+                    }
+                });
     }
 
     private void insertRestaurant() {
@@ -224,9 +255,9 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
 
     public void onClick(View btn) {
         if (btn == search_restaurants_button) {
-
+            getUserLocation();
             //insertRestaurant();
-            getRestaurants();
+            //getRestaurants();
 
             //insertEatery();
             //getEatery();
