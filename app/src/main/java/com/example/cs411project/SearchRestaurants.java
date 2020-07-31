@@ -88,6 +88,10 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
 
 
     private void getUserLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            return;
+        }
         fusedLocationClient.getLastLocation()
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                     @Override
@@ -116,7 +120,7 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
             @Override
             public void onResponse(String response) {
                 //JSONObject jsonObject = new JSONObject(response);
-                Toast.makeText(getApplicationContext(), "hello", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -252,10 +256,36 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
         RequestQueueHandler.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
 
+    private void searchMenuItem() {
+        final String Menu_Item = editTextSPECIFICMENUITEM.getText().toString().trim();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                Constants.URL_KEYWORD_SEARCH, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                params.put("keyword", Menu_Item);
+                return params;
+            }
+        };
+        RequestQueueHandler.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
 
     public void onClick(View btn) {
         if (btn == search_restaurants_button) {
-            getUserLocation();
+            searchMenuItem();
+            //getUserLocation();
             //insertRestaurant();
             //getRestaurants();
 
