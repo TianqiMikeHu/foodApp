@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -88,9 +89,11 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
 
 
     private void getUserLocation() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            return;
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},0);
         }
         fusedLocationClient.getLastLocation()
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
@@ -98,12 +101,35 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
                     public void onSuccess(Location location) {
                         if (location != null) {
                             user_location = location;
-                            System.out.println(location.getLatitude());
-                            System.out.println(location.getLongitude());
-                            System.out.println(location.getExtras());
+//                            System.out.println(location.getLatitude());
+//                            System.out.println(location.getLongitude());
+//                            System.out.println(location.getExtras());
+                            String s = location.getLatitude()+", "+location.getLongitude()+", "+location.getExtras();
+                            textViewRESULT.setText(s);
                         }
                     }
                 });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                            @NonNull String[] permissions,
+                                            @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 0) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this,
+                        "Permission Granted",
+                        Toast.LENGTH_SHORT)
+                        .show();
+            } else {
+                Toast.makeText(this,
+                        "Permission Denied",
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
+        }
     }
 
     private void insertRestaurant() {
@@ -284,8 +310,8 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
 
     public void onClick(View btn) {
         if (btn == search_restaurants_button) {
-            searchMenuItem();
-            //getUserLocation();
+            //searchMenuItem();
+            getUserLocation();
             //insertRestaurant();
             //getRestaurants();
 
