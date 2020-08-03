@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Address"
-                android:inputType="date" />
+                android:inputType="textPersonName" />
 
             <TextView
                 android:id="@+id/SuccessMessageBox"

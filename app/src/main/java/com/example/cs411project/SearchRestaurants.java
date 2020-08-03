@@ -101,9 +101,9 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
                     public void onSuccess(Location location) {
                         if (location != null) {
                             user_location = location;
-//                            System.out.println(location.getLatitude());
-//                            System.out.println(location.getLongitude());
-//                            System.out.println(location.getExtras());
+                            System.out.println(location.getLatitude());
+                            System.out.println(location.getLongitude());
+                            System.out.println(location.getExtras());
                             String s = location.getLatitude()+", "+location.getLongitude()+", "+location.getExtras();
                             textViewRESULT.setText(s);
                         }
@@ -188,7 +188,7 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
             @Override
             public void onResponse(String response) {
                 try {
-                    JSONObject jsonObject = new JSONObject(response.toString());
+                    JSONObject jsonObject = new JSONObject(response);
                     Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
