@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Set Deletion Conditions"
+        android:text="Set Deletion Condition"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -27,7 +27,7 @@
         android:id="@+id/scrollView"
         android:layout_width="379dp"
         android:layout_height="450dp"
-        app:layout_constraintBottom_toTopOf="@+id/update_restaurants_button"
+        app:layout_constraintBottom_toTopOf="@+id/delete_restaurants_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Title">
@@ -45,94 +45,6 @@
                 android:ems="10"
                 android:hint="Eatery ID"
                 android:inputType="number" />
-
-            <EditText
-                android:id="@+id/Eatery_Name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Eatery Name"
-                android:inputType="textPersonName" />
-
-            <EditText
-                android:id="@+id/Email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Email"
-                android:inputType="textEmailAddress" />
-
-            <EditText
-                android:id="@+id/Start_Hour"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Start Hour"
-                android:inputType="number" />
-
-            <EditText
-                android:id="@+id/End_Hour"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="End Hour"
-                android:inputType="number" />
-
-            <EditText
-                android:id="@+id/Open_Days"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Open Days"
-                android:inputType="textPersonName" />
-
-            <EditText
-                android:id="@+id/Address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Address"
-                android:inputType="textPostalAddress" />
-
-            <EditText
-                android:id="@+id/Pricing"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Pricing"
-                android:inputType="number" />
-
-            <EditText
-                android:id="@+id/Phone_Num"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Phone Number"
-                android:inputType="phone" />
-
-            <EditText
-                android:id="@+id/Regional_Type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Regional Type"
-                android:inputType="textPersonName" />
-
-            <EditText
-                android:id="@+id/Eatery_Type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Eatery Type"
-                android:inputType="number" />
-
-            <EditText
-                android:id="@+id/Cuisine"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Cuisine"
-                android:inputType="textPersonName" />
 
 
         </LinearLayout>
