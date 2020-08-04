@@ -85,7 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Eatery Name"
+                android:hint="New Price"
                 android:inputType="textPersonName" />
 
             <EditText
@@ -93,7 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Email"
+                android:hint="Item ID"
                 android:inputType="textEmailAddress" />
 
             <EditText
@@ -101,72 +101,72 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Start Hour"
+                android:hint="Menu ID"
                 android:inputType="number" />
 
-            <EditText
-                android:id="@+id/End_Hour_new"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="End Hour"
-                android:inputType="number" />
+<!--            <EditText-->
+<!--                android:id="@+id/End_Hour_new"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:ems="10"-->
+<!--                android:hint="End Hour"-->
+<!--                android:inputType="number" />-->
 
-            <EditText
-                android:id="@+id/Open_Days_new"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Open Days"
-                android:inputType="textPersonName" />
+<!--            <EditText-->
+<!--                android:id="@+id/Open_Days_new"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:ems="10"-->
+<!--                android:hint="Open Days"-->
+<!--                android:inputType="textPersonName" />-->
 
-            <EditText
-                android:id="@+id/Address_new"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Address"
-                android:inputType="textPostalAddress" />
+<!--            <EditText-->
+<!--                android:id="@+id/Address_new"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:ems="10"-->
+<!--                android:hint="Address"-->
+<!--                android:inputType="textPostalAddress" />-->
 
-            <EditText
-                android:id="@+id/Pricing_new"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Pricing"
-                android:inputType="number" />
+<!--            <EditText-->
+<!--                android:id="@+id/Pricing_new"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:ems="10"-->
+<!--                android:hint="Pricing"-->
+<!--                android:inputType="number" />-->
 
-            <EditText
-                android:id="@+id/Phone_Num_new"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Phone Number"
-                android:inputType="phone" />
+<!--            <EditText-->
+<!--                android:id="@+id/Phone_Num_new"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:ems="10"-->
+<!--                android:hint="Phone Number"-->
+<!--                android:inputType="phone" />-->
 
-            <EditText
-                android:id="@+id/Regional_Type_new"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Regional Type"
-                android:inputType="textPersonName" />
+<!--            <EditText-->
+<!--                android:id="@+id/Regional_Type_new"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:ems="10"-->
+<!--                android:hint="Regional Type"-->
+<!--                android:inputType="textPersonName" />-->
 
-            <EditText
-                android:id="@+id/Eatery_Type_new"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Eatery Type"
-                android:inputType="number" />
+<!--            <EditText-->
+<!--                android:id="@+id/Eatery_Type_new"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:ems="10"-->
+<!--                android:hint="Eatery Type"-->
+<!--                android:inputType="number" />-->
 
-            <EditText
-                android:id="@+id/Cuisine_new"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Cuisine"
-                android:inputType="textPersonName" />
+<!--            <EditText-->
+<!--                android:id="@+id/Cuisine_new"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:ems="10"-->
+<!--                android:hint="Cuisine"-->
+<!--                android:inputType="textPersonName" />-->
 
 
         </LinearLayout>

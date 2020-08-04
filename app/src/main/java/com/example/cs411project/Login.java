@@ -31,6 +31,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View btn){
         if(btn == log_in_button){
             String temp = editTextUSERID.getText().toString().trim();
+            globalVars.setUser(Integer.parseInt(temp));
             title.setText("You have logged in, "+temp+"!");
         }
     }

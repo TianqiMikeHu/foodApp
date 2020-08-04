@@ -14,4 +14,9 @@ public class Constants {
     public static final String URL_ADD_REVIEW = ROOT_URL_V1+"add_reviewV2.php";
     //public static final String URL_SEARCH_REVIEW = ROOT_URL+"search_review_byname.php";
     public static final String URL_SEARCH_REVIEW = ROOT_URL_V1+"search_review_bynameV2.php";
+    //public static final String URL_ADD_RESTAURANT = ROOT_URL+"create_eatery.php";
+    public static final String URL_ADD_RESTAURANT = ROOT_URL_V1+"insertEatery.php";
+    //public static final String URL_UPDATE_PRICING = ROOT_URL+"update_pricing.php";
+    public static final String URL_UPDATE_PRICING = ROOT_URL_V1+"update_pricingV2.php";
+    public static final String URL_DELETE_RESTAURANT = ROOT_URL+"delete_eatery.php";
 }

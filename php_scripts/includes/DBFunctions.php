@@ -50,9 +50,16 @@
 			//}
 		}
 
-		public function createEatery($Eatery_ID, $Eatery_Name, $Email, $Start_Hour, $End_Hour, $Open_Days, $Address, $Pricing, $Coordinates, $Phone_Num, $Regional_Type, $Eatery_Type, $Cuisine) {
-			$insert = $this->conn->prepare("INSERT INTO `eatery` (`Eatery_ID`, `Eatery_Name`, `Email`, `Start_Hour`, `End_Hour`, `Open_Days`, `Address`, `Pricing`, `Coordinates`, `Phone_Num`, `Regional_Type`, `Eatery_Type`, `Cuisine`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
-			$insert->bind_param("sssssssssssss",$Eatery_ID,$Eatery_Name,$Email,$Start_Hour,$End_Hour,$Open_Days,$Address,$Pricing,$Coordinates,$Phone_Num,$Regional_Type,$Eatery_Type,$Cuisine);
+		public function createEatery($Eatery_Name, $Email, $Start_Hour, $End_Hour, $Open_Days, $Address, $Pricing, $Phone_Num, $Regional_Type, $Eatery_Type) {
+			$stmt = $this->conn->prepare("SELECT MAX(Eatery_ID) as next FROM eatery");
+			$stmt->execute();
+			$result = $stmt->get_result();
+			$row = $result->fetch_assoc();
+			$Eatery_ID = $row['next']+1;
+			$Cuisine = NULL;
+			$Coordinates = NULL;
+			$insert = $this->conn->prepare("INSERT INTO eatery VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+			$insert->bind_param("issiissiissss",$Eatery_ID,$Eatery_Name,$Email,$Start_Hour,$End_Hour,$Open_Days,$Address,$Pricing,$Coordinates,$Phone_Num,$Regional_Type,$Eatery_Type,$Cuisine);
 			if ($insert->execute()) {
 				return true;
 			} else {
@@ -93,6 +100,16 @@
 			$stmt->execute();
 			$result = $stmt->get_result()->fetch_all();
 			echo json_encode($result,JSON_PRETTY_PRINT);
+		}
+
+		public function updatePricing($new_value, $item_id, $menu_id, $eatery_id) {
+			$insert = $this->conn->prepare("UPDATE menu_item SET Item_Price = ? WHERE Item_ID = ? AND Menu_ID = ? AND Eatery_ID = ?");
+			$insert->bind_param("iiii",$new_value, $item_id, $menu_id, $eatery_id);
+			if ($insert->execute()) {
+				return true;
+			} else {
+			return false;
+			}
 		}
 
 
