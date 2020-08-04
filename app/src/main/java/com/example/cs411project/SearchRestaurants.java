@@ -33,6 +33,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -132,7 +133,7 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
         }
     }
 
-    private void insertRestaurant() {
+    private void searchRestaurants() {
         final String name = editTextName.getText().toString().trim();
         final String Start_Hour = editTextOPENTIME.getText().toString().trim();
         final String End_Hour = editTextCLOSINGTIME.getText().toString().trim();
@@ -142,38 +143,44 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
         final String Menu_Item = editTextSPECIFICMENUITEM.getText().toString().trim();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                Constants.URL_INSERT_RESTAURANT, new Response.Listener<String>() {
+                Constants.URL_GET_RESTAURANTS, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                //JSONObject jsonObject = new JSONObject(response);
-                Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
+                //Gson gson = new Gson();
+                //String json = gson.toJson(response);
+                response = response.replace("[","");
+                response = response.replace("]","");
+                response = response.replace("{","");
+                response = response.replace("}","");
+                response = response.replace("\\","");
+                response = response.replace("\"","");
+                response = response.replace("\\t","");
+                response = response.replace("products","Restaurants");
+                response = response.replace("success: 1","");
+
+                textViewRESULT.setText(response);
+                //Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
+
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                textViewRESULT.setText("error");
                 Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params = new HashMap<>();
-                //params.put("Name", name);
-                //params.put("Address", "test123124");
-          params.put("Name:", "TESTNAME");
-          params.put("Website:", "atakan.com");
-          params.put("Start_Hour:", "0700");
-          params.put("End_Hour:", "2300");
-          params.put("Open_Days:", "1234560");
-          params.put("Address:", "408 E Springfield");
-          params.put("Price_Level:", "3");
-          params.put("Phone:", "22222222");
-          params.put("Regional_Type:", "Turkish");
-          params.put("Eatery_Type:", "Ev");
-
-                for (Map.Entry entry : params.entrySet())
-                {
-                    System.out.println("key: " + entry.getKey() + "; value: " + entry.getValue());
-                }
+                String userid = Integer.toString(globalVars.getUser());
+                params.put("User_ID", userid);
+                params.put("Name", name);
+                params.put("OpeningHour", Start_Hour);
+                params.put("ClosingHour", End_Hour);
+                params.put("OpenDays", Open_Days);
+                params.put("Type", Regional_Type);
+                params.put("Pricing", Pricing);
+                params.put("MenuItem", Menu_Item);
 
                 return params;
             }
@@ -181,142 +188,10 @@ public class SearchRestaurants extends AppCompatActivity implements View.OnClick
 
         RequestQueueHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
-
-    private void getEatery() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                Constants.URL_GET_RESTAURANT, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<>();
-                //JSONObject params = new JSONObject();
-                params.put("Name:", "");
-                params.put("OpeningHour:", "");
-                params.put("ClosingHour:", "");
-                params.put("OpenDays:", "%2%4");
-                params.put("Type:", "");
-                params.put("Pricing:", "");
-                params.put("MenuItem:", "Salad");
-                return params;
-            }
-        };
-        RequestQueueHandler.getInstance(this).addToRequestQueue(stringRequest);
-    }
-
-    private void getRestaurants() {
-        final ArrayList<String> resultList = new ArrayList<>();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Constants.URL_GET_RESTAURANT, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONArray arr = new JSONArray(response);
-                    for (int i = 0; i < arr.length(); i++) {
-                        JSONObject restaurant = arr.getJSONObject(i);
-                        resultList.add(restaurant.toString());
-                    }
-                    for (int i = 0; i < resultList.size(); i++) {
-                        textViewRESULT.append(resultList.get(i));
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        RequestQueueHandler.getInstance(this).addToRequestQueue(stringRequest);
-    }
-
-
-    private void insertEatery() {
-        HashMap<String,String> params = new HashMap<>();
-        params.put("Name:", "TESTNAME");
-        params.put("Website:", "atakan.com");
-        params.put("Start_Hour:", "0700");
-        params.put("End_Hour:", "2300");
-        params.put("Open_Days:", "1234560");
-        params.put("Address:", "408 E Springfield");
-        params.put("Price_Level:", "3");
-        params.put("Phone:", "22222222");
-        params.put("Regional_Type:", "Turkish");
-        params.put("Eatery_Type:", "Ev");
-        JSONObject parameters = new JSONObject(params);
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
-                Constants.URL_INSERT_RESTAURANT, parameters, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    //Log.println(Log.INFO, "tagconvertstr", "["+response+"]");
-                    Log.d("test----", response.toString());
-                    JSONObject jsonObject = new JSONObject((Map) response);
-                    Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        RequestQueueHandler.getInstance(this).addToRequestQueue(jsonObjectRequest);
-    }
-
-    private void searchMenuItem() {
-        final String Menu_Item = editTextSPECIFICMENUITEM.getText().toString().trim();
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                Constants.URL_KEYWORD_SEARCH, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<>();
-                params.put("keyword", Menu_Item);
-                return params;
-            }
-        };
-        RequestQueueHandler.getInstance(this).addToRequestQueue(stringRequest);
-    }
-
 
     public void onClick(View btn) {
         if (btn == search_restaurants_button) {
-            //searchMenuItem();
-            getUserLocation();
-            //insertRestaurant();
-            //getRestaurants();
-
-            //insertEatery();
-            //getEatery();
+            searchRestaurants();
         }
     }
 }

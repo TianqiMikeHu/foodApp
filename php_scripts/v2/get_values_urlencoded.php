@@ -1,0 +1,185 @@
+<?php
+
+//Make sure that it is a POST request.
+if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
+    throw new Exception('Request method must be POST!');
+}
+
+//Make sure that the content type of the POST request has been set to application/json
+// $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
+// if(strcasecmp($contentType, 'application/json') != 0){
+//     throw new Exception('Content type must be: application/json');
+// }
+
+// array for JSON response
+$response = array();
+$content = trim(file_get_contents("php://input"));
+//$decoded_input = json_decode($content,true);
+
+// check if the json message exists
+//if (is_array($decoded_input)) {
+if (isset($_POST['User_ID']) and isset($_POST['Name']) and isset($_POST['OpeningHour']) and isset($_POST['ClosingHour']) and isset($_POST['OpenDays']) and isset($_POST['Type']) and isset($_POST['Pricing']) and isset($_POST['MenuItem'])) {
+    // include db connect class
+    require_once __DIR__ . '/db_config.php';
+
+    // connecting to db
+    $link = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_DATABASE);
+
+    /* check connection */
+    if (mysqli_connect_errno()) {
+        printf("Connect failed: %s\n", mysqli_connect_error());
+        exit();
+    }
+
+    //formulize the query
+    $query = "SELECT * FROM ";
+    $from = "eatery ";
+    $where = "WHERE ";
+    $flag = 0;
+    if($_POST['Name'] != ""){
+      $where .= "Eatery_Name = '";
+      $where .= $_POST['Name'];
+      $where .= "'";
+      $flag = 1;
+    }
+    if($x = $_POST['OpeningHour'] != ""){
+      if($flag)
+        $where .= " AND ";
+      $where .= "(Start_Hour > End_Hour AND (Start_Hour <= ";
+      $where .= $_POST['OpeningHour'];
+      $where .= " OR End_Hour >= ";
+      $where .= $_POST['OpeningHour'];
+      $where .= ")) OR (Start_Hour <= End_Hour AND (Start_Hour <= ";
+      $where .= $_POST['OpeningHour'];
+      $where .= " AND End_Hour >= ";
+      $where .= $_POST['OpeningHour'];
+      $where .= "))";
+      $flag = 1;
+    }
+    if($x = $_POST['ClosingHour'] != ""){
+      if($flag)
+        $where .= " AND ";
+      $where .= "(Start_Hour > End_Hour AND (Start_Hour <= ";
+      $where .= $_POST['ClosingHour'];
+      $where .= " OR End_Hour >= ";
+      $where .= $_POST['ClosingHour'];
+      $where .= ")) OR (Start_Hour <= End_Hour AND (Start_Hour <= ";
+      $where .= $_POST['ClosingHour'];
+      $where .= " AND End_Hour >= ";
+      $where .= $_POST['ClosingHour'];
+      $where .= "))";
+      $flag = 1;
+    }
+    if($x = $_POST['OpenDays'] != ""){
+      if($flag)
+        $where .= " AND ";
+      $where .= "Open_Days LIKE '";
+      $where .= $_POST['OpenDays'];
+      $where .= "'";
+      $flag = 1;
+    }
+    if($x = $_POST['Type'] != ""){
+      if($flag)
+        $where .= " AND ";
+      $where .= "Regional_Type LIKE '%";
+      $where .= $_POST['RegionalType'];
+      $where .= "%'";
+      $flag = 1;
+    }
+    if($x = $_POST['Pricing'] != ""){
+      if($flag)
+        $where .= " AND ";
+      $where .= "Pricing <= ";
+      $where .= $_POST['Pricing'];
+      $flag = 1;
+    }if($_POST['MenuItem'] != ""){
+      $query = "SELECT DISTINCT(Eatery_ID), Eatery_Name, Website, Start_Hour, End_Hour, Open_Days, Address, Pricing, Coordinates, Phone_Num, Regional_Type, Eatery_Type, Cuisine FROM ";
+      $from .= " NATURAL JOIN menu_item ";
+      if($flag)
+        $where .= " AND ";
+      $where .= "Item_Type = '";
+      $where .= $_POST['MenuItem'];
+      $where .= "'";
+    }
+
+    $query .= $from;
+    if($flag)
+      $query .= $where;
+
+    $query_modified = "SELECT DISTINCT(Eatery_ID), Eatery_Name, Website, Start_Hour, End_Hour, Open_Days, Address, Pricing, Coordinates, Phone_Num, Regional_Type, Eatery_Type, Cuisine FROM (SELECT DISTINCT * FROM eatery LEFT OUTER JOIN (SELECT Eatery_ID AS R_Eatery_ID, SUM(Count_Visited) AS CountV FROM (SELECT Eatery_ID, Item_Type FROM Menu_Item) AS Menu_Item_Parsed NATURAL JOIN (SELECT Item_Type, Count_Visited FROM preference WHERE preference.User_ID ='";
+
+    $query_modified .= $_POST['User_ID'];
+    $query_modified .= "')";
+    $query_modified .= " AS Weighted_Preferences GROUP BY Eatery_ID) AS FormattedPreferencesXMenu ON FormattedPreferencesXMenu.R_Eatery_ID = eatery.Eatery_ID ";
+    $query_modified .= $where;
+    $query_modified .= " ORDER BY CountV DESC) AS Ordered_Restaurants";
+    // echo $query_modified;
+
+
+
+    $query_insert = "INSERT INTO tempsearch ";
+    $query_insert .= $query;
+    mysqli_query($link, $query_insert);
+
+    $query_procedure = "CALL Preference('";
+    $query_procedure .= $_POST["User_ID"];
+    $query_procedure .= "')";
+    mysqli_query($link, $query_procedure);
+
+    $query_last = "SELECT * FROM tempsearch";
+    $result = mysqli_query($link, $query_modified);
+
+
+
+    $query_delete = "DELETE FROM tempsearch";
+    mysqli_query($link, $query_delete);
+
+    // check if row inserted or not
+    if ($result) {
+      // looping through all results
+      // products node
+      $response["products"] = array();
+
+      while ($row = mysqli_fetch_array($result)) {
+          // temp user array
+          $product = array();
+          $product["Eatery_ID"] = $row["Eatery_ID"];
+          $product["Eatery_Name"] = $row["Eatery_Name"];
+          $product["Website"] = $row["Website"];
+          $product["Start_Hour"] = $row["Start_Hour"];
+          $product["End_Hour"] = $row["End_Hour"];
+          $product["Open_Days"] = $row["Open_Days"];
+          $product["Address"] = $row["Address"];
+          $product["Pricing"] = $row["Pricing"];
+          $product["Coordinates"] = $row["Coordinates"];
+          $product["Phone_Num"] = $row["Phone_Num"];
+          $product["Regional_Type"] = $row["Regional_Type"];
+          $product["Eatery_Type"] = $row["Eatery_Type"];
+          $product["Cuisine"] = $row["Cuisine"];
+          // push single product into final response array
+          array_push($response["products"], $product);
+      }
+      // success
+      $response["success"] = 1;
+
+      // echoing JSON response
+      echo json_encode($response);
+    } else {
+        // failed to insert row
+        $response["success"] = 0;
+        $response["message"] = "Oops! An error occurred.";
+
+        // echoing JSON response
+        echo json_encode($response);
+    }
+
+    mysqli_close($link);
+} else {
+    // required field is missing
+    $response["success"] = 0;
+    $response["message"] = "Required field(s) is missing";
+
+    // echoing JSON response
+    echo json_encode($response);
+}
+?>

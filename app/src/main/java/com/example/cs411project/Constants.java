@@ -3,8 +3,8 @@ package com.example.cs411project;
 public class Constants {
     private static final String ROOT_URL = "http://192.168.1.14/foodApp/v2/";
     private static final String ROOT_URL_V1 = "http://192.168.1.14/foodApp/v1/";
-    public static final String URL_INSERT_RESTAURANT = ROOT_URL+"create_eatery.php";
-    public static final String URL_GET_RESTAURANT = ROOT_URL_V1+"getEatery.php";
+    //public static final String URL_INSERT_RESTAURANT = ROOT_URL+"create_eatery.php";
+    //public static final String URL_GET_RESTAURANT = ROOT_URL_V1+"getEatery.php";
     public static final String URL_KEYWORD_SEARCH = "http://192.168.1.14/GoogleApiReader/keyword_search.php";
     public static final String URL_AUTOMATION = ROOT_URL_V1+"automationV2.php";
     public static final String URL_GETVALUES_2 = ROOT_URL+"get_values_2.php";
@@ -19,4 +19,6 @@ public class Constants {
     //public static final String URL_UPDATE_PRICING = ROOT_URL+"update_pricing.php";
     public static final String URL_UPDATE_PRICING = ROOT_URL_V1+"update_pricingV2.php";
     public static final String URL_DELETE_RESTAURANT = ROOT_URL+"delete_eatery.php";
+    public static final String URL_GET_RESTAURANTS = ROOT_URL+"get_values_urlencoded.php";
+    public static final String URL_GET_MENU_ITEM = ROOT_URL+"get_values_2_urlencoded.php";
 }

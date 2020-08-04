@@ -62,16 +62,6 @@ public class SearchReviews extends AppCompatActivity implements View.OnClickList
                     response = response.replace("[","");
                     response = response.replace("]","");
                     textViewRESULT.setText(response);
-//                    JSONArray arr = new JSONArray(response);
-//                    for (int i = 0; i < arr.length(); i++) {
-//                        System.out.println(arr.getJSONObject(i));
-//                        JSONObject review = arr.getJSONObject(i);
-//                        resultList.add(review.toString());
-//                    }
-//                    for (int i = 0; i < resultList.size(); i++) {
-//                        textViewRESULT.append(resultList.get(i));
-//                    }
-
             }
         }, new Response.ErrorListener() {
             @Override
